@@ -1,0 +1,10 @@
+<div data-options="dxView : { name: 'home', layout: 'navbar' } ">
+    <div data-options="dxContent : { targetPlaceholder: 'content' } ">
+        <div>
+            <button data-bind="click: changeText">Change title text and the color of the scale's minor ticks</button>
+        </div>
+        <div id="gaugeContainer" style="height: 250px" data-bind="dxLinearGauge: linearGaugeOptions"></div>
+
+
+    </div>
+</div>
