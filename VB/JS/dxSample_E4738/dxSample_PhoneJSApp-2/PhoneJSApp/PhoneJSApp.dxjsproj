@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{627ef0e0-2735-4fbe-a49a-0476c52136e1}</ProjectGuid>
+    <AutoAssignPort>True</AutoAssignPort>
+    <RunInSimulator>True</RunInSimulator>
+    <ApplicationPage>index.html</ApplicationPage>
+    <Name>PhoneJSApp</Name>
+    <RootNamespace>PhoneJSApp</RootNamespace>
+    <DebugSitePortNumber>50000</DebugSitePortNumber>
+    <UseWebDev>False</UseWebDev>
+    <DefaultDevice>iPhone</DefaultDevice>
+    <DeviceOrientation>Portrait</DeviceOrientation>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>bin\Release\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="css\dx.common.css" />
+    <Content Include="css\dx.android.holo-dark.css" />
+    <Content Include="css\dx.desktop.default.css" />
+    <Content Include="css\dx.ios.default.css" />
+    <Content Include="css\dx.win8.black.css" />
+    <Content Include="css\dx.win8.white.css" />
+    <Content Include="css\dx.win8.black.small.css" />
+    <Content Include="data\db.js" />
+    <Content Include="index.html">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="index.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="js\dx.all.js" />
+    <Content Include="js\dx.all.debug.js" />
+    <Content Include="js\dx.phonejs.js" />
+    <Content Include="js\dx.phonejs.debug.js" />
+    <Content Include="js\dx.chartjs.js" />
+    <Content Include="js\dx.chartjs.debug.js" />
+    <Content Include="js\globalize.js" />
+    <Content Include="js\jquery-1.9.1.min.js" />
+    <Content Include="js\knockout-2.2.1.js" />
+    <Content Include="Layouts\default.html">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Layouts\Navbar\NavbarLayout.css">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Layouts\Navbar\NavbarLayout.dxview">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Layouts\Navbar\NavbarLayout.js">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Views\home.dxview">
+      <SubType>Content</SubType>
+    </Content>
+    <Content Include="Views\js\home.js">
+      <SubType>Content</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="css\" />
+    <Folder Include="data\" />
+    <Folder Include="js\" />
+    <Folder Include="Layouts" />
+    <Folder Include="Layouts\Navbar\" />
+    <Folder Include="Views" />
+    <Folder Include="Views\js" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+  <Target Name="Build">
+    <!--
+    <Message Text="'$(MSBuildToolsPath)'"></Message>
+    -->
+    <Message Text="Build JSProject '$(MSBuildProjectFile)':" Importance="high">
+    </Message>
+    <Message Text="Copying refenecses to output dir..." Importance="high" />
+    <MSBuild Targets="Build" Projects="@(ProjectReference)" Properties="OutputPath=$([System.IO.Path]::GetFullPath('$(OutputPath)'))">
+    </MSBuild>
+    <Message Text="Copying files to output dir..." Importance="high" />
+    <Copy SourceFiles="@(Content)" DestinationFiles="@(Content->'$(OutputPath)%(RelativeDir)%(Filename)%(Extension)')" />
+    <Message Text="Finished Build JSProject '$(MSBuildProjectFile)'." Importance="high">
+    </Message>
+  </Target>
+  <Target Name="CreateManifestResourceNames" Condition="'@(ResxWithNoCulture)@(ResxWithCulture)@(NonResxWithNoCulture)@(NonResxWithCulture)'!=''" />
+  <Target Name="Rebuild" DependsOnTargets="Clean;Build">
+  </Target>
+  <Target Name="Clean">
+    <!--
+    <Message Text="Cleaning Output files..." Importance="high" />
+    <Delete Files="@([System.IO.Path]::GetFullPath('$(OutputPath)'))" />
+    -->
+    <Message Text="Cleaning Output dir ($([System.IO.Path]::GetFullPath('$(OutputPath)')))..." Importance="high" />
+    <RemoveDir Directories="$([System.IO.Path]::GetFullPath('$(OutputPath)'))" />
+  </Target>
+</Project>
